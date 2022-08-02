@@ -1,6 +1,8 @@
 using IniParser.Models;
 using Sprache;
 
+namespace IniParser;
+
 public static class Parser
 {
     private static Parser<string> KeyIdentifier = Parse.Identifier(Parse.Letter, Parse.LetterOrDigit);
@@ -36,7 +38,9 @@ public static class Parser
     private static Parser<IniSection> SectionParser =
         from sectionName in SectionNameParser.Optional()
         from properties in PropertyParser.Many().Optional()
-        select new IniSection(sectionName.GetOrDefault(), properties.GetOrDefault());
+        select new IniSection(
+            sectionName.IsDefined ? sectionName.Get() : string.Empty,
+            properties.GetOrDefault());
 
     public static IEnumerable<IniSection> Run(string input)
     {
