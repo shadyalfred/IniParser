@@ -43,6 +43,13 @@ public class IniParserTest
                 new KeyValuePair<string, string>("key6", "value6"),
             }
         ),
+        new IniSection(
+            "section-3",
+            new KeyValuePair<string, string>[]
+            {
+                new KeyValuePair<string, string>("somekey", "somevalue"),
+            }
+        ),
     };
 
     private bool AreIniSectionsEqual(
